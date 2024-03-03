@@ -6,7 +6,10 @@ const asyncHandler = require("express-async-handler");
 const MEMBER_PASSWORD = "sermiembro";
 
 exports.become_member_get = asyncHandler(async (req, res, next) => {
-  res.render("become_member_form", { title: "Become a member" });
+  res.render("become_member_form", {
+    title: "Become a member",
+    user: res.locals.currentUser,
+  });
 });
 
 exports.become_member_post = asyncHandler(async (req, res, next) => {
@@ -17,14 +20,12 @@ exports.become_member_post = asyncHandler(async (req, res, next) => {
       errors: ["wrong password"],
     });
   } else {
-    User.findByIdAndUpdate(
-      req.user._id,
-      { membership_status: true },
-      function (err, result) {
-        if (err) return next(err);
-        console.log("actualizado usuario");
+    User.findByIdAndUpdate(req.user._id, { membership_status: true })
+      .then((result) => {
         res.redirect("/");
-      }
-    );
+      })
+      .catch((err) => {
+        next(err);
+      });
   }
 });
