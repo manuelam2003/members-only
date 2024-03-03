@@ -10,7 +10,6 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 
 const indexRouter = require("./routes/index");
-
 const app = express();
 
 const mongoose = require("mongoose");
@@ -49,9 +48,49 @@ const limiter = RateLimit({
 // app.use(limiter);
 app.use(express.static(path.join(__dirname, "public")));
 
+const User = require("./models/user");
+const bcrypt = require("bcryptjs");
+//passportjs functions
+
+passport.use(
+  new LocalStrategy(async (username, password, done) => {
+    try {
+      const user = await User.findOne({ username: username });
+      if (!user) {
+        return done(null, false, { message: "Incorrect username" });
+      }
+      const match = bcrypt.compare(password, user.password);
+      if (!match) {
+        return done(null, false, { message: "Incorrect password" });
+      }
+      return done(null, user);
+    } catch (err) {
+      return done(err);
+    }
+  })
+);
+
+passport.serializeUser(function (user, done) {
+  done(null, user.id);
+});
+
+passport.deserializeUser(async (id, done) => {
+  try {
+    const user = await User.findById(id);
+    done(null, user);
+  } catch (err) {
+    done(err);
+  }
+});
+
 app.use(session({ secret: "cats", resave: false, saveUninitialized: true }));
 app.use(passport.session());
 app.use(express.urlencoded({ extended: false }));
+
+app.use(function (req, res, next) {
+  res.locals.currentUser = req.user;
+  next();
+});
 
 app.use("/", indexRouter);
 

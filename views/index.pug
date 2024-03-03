@@ -3,3 +3,10 @@ extends layout
 block content
   h1= title
   p Welcome to #{title}
+  if currentUser
+    p You are #{currentUser.username}
+  a(href="/log-in")
+    button.btn.btn-primary(type="button" style="margin-right:10px") Login page
+  a(href="/sign-up")
+    button.btn.btn-primary(type="button") Signup page
+        
