@@ -6,12 +6,10 @@ const UserSchema = new Schema({
   last_name: { type: String, required: true, minLength: 3, maxLength: 100 },
   username: { type: String, required: true, minLength: 3, maxLength: 100 },
   password: { type: String, required: true },
-  // membership_status: {
-  //   type: String,
-  //   required: true,
-  //   enum: [],
-  //   default: "pepe",
-  // },
+  membership_status: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 UserSchema.virtual("url").get(function () {
