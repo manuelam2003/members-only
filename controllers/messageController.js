@@ -37,3 +37,14 @@ exports.create_message_post = [
     }
   }),
 ];
+
+exports.message_delete = asyncHandler(async (req, res, next) => {
+  const message = await Message.findById(req.params.id)
+    .populate("author")
+    .exec();
+  if (message === null) {
+    res.redirect("/");
+  }
+  await Message.findByIdAndDelete(req.params.id);
+  res.redirect("/");
+});

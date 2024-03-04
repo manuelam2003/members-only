@@ -10,7 +10,7 @@ router.get(
   "/",
   asyncHandler(async (req, res, next) => {
     const messages = await Message.find()
-      .sort({ timestamp: 1 })
+      .sort({ timestamp: -1 })
       .populate("author")
       .exec();
     res.render("index", { title: "Express1", messages: messages });
@@ -38,5 +38,7 @@ router.get("/log-out", auth_controller.log_out);
 router.get("/create-message", message_controller.create_message_get);
 
 router.post("/create-message", message_controller.create_message_post);
+
+router.get("/delete-message/:id", message_controller.message_delete);
 
 module.exports = router;
