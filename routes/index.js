@@ -3,11 +3,19 @@ const router = express.Router();
 const auth_controller = require("../controllers/authController");
 const user_controller = require("../controllers/userController");
 const message_controller = require("../controllers/messageController");
+const asyncHandler = require("express-async-handler");
+const Message = require("../models/message");
 
-/* GET home page. */
-router.get("/", function (req, res, next) {
-  res.render("index", { title: "Express1" });
-});
+router.get(
+  "/",
+  asyncHandler(async (req, res, next) => {
+    const messages = await Message.find()
+      .sort({ timestamp: 1 })
+      .populate("author")
+      .exec();
+    res.render("index", { title: "Express1", messages: messages });
+  })
+);
 
 router.get("/sign-up", auth_controller.sign_up_get);
 

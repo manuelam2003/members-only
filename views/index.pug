@@ -6,7 +6,18 @@ block content
   if currentUser
     p You are #{currentUser.username}
     a(href="/create-message") Create message
-  hr 
+  hr
+  if messages 
+    div.card
+      ul.list-group.list-group-flush 
+        for message in messages 
+          li.list-group-item 
+            h4=message.title 
+            p=message.text
+            if (currentUser && currentUser.membership_status) 
+              p=message.timestamp
+              p=message.author.username
+  hr
   a(href="/log-in")
     button.btn.btn-primary(type="button" style="margin-right:10px") Login page
   a(href="/sign-up")
