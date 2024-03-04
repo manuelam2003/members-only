@@ -65,7 +65,6 @@ exports.sign_up_post = [
 ];
 
 exports.log_in_get = asyncHandler(async (req, res, next) => {
-  console.log(req.user);
   res.render("log_in_form");
 });
 
