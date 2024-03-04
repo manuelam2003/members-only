@@ -1,16 +1,15 @@
 extends layout 
 
 block content 
-  form#submit-form(action="/create-message", method="POST")
-    h1 Create a Message
-    //- img#submit-form-avatar(src=`/images/${user.avatar}.svg`, alt="alien")
+  h1=title
+  form#submit-form(method="POST")
     if currentUser.membership_status
       div.form-group
         label(for="title") Title: 
-        input#title.form-control(type="text" placeholder="Enter title" name="title" required)  
+        input#title.form-control(type="text" placeholder="Enter title" name="title" required value=(message===undefined?"":message.title))  
       div.form-group
         label(for="messageText") Message: 
-        textarea#messageText.form-control(type="text" placeholder="Enter message" name="messageText" required)  
+        input#messageText.form-control(type="text" placeholder="Enter message" name="messageText" required value=(message===undefined?"":message.text))  
       if errors 
         h3 Errors
         ul 

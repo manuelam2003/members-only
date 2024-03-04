@@ -50,4 +50,8 @@ router.post("/create-message", message_controller.create_message_post);
 
 router.get("/delete-message/:id", message_controller.message_delete);
 
+router.get("/update-message/:id", message_controller.update_message_get);
+
+router.post("/update-message/:id", message_controller.update_message_post);
+
 module.exports = router;

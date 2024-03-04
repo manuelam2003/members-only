@@ -20,6 +20,9 @@ block content
             if (currentUser && currentUser.is_admin)
               a(href="/delete-message/"+message._id) 
                 button.btn.btn-primary(type="button") Delete
+            if (currentUser && currentUser._id.equals(message.author._id))
+              a(href="/update-message/"+message._id) 
+                button.btn.btn-primary(type="button") Update
   hr
   a(href="/log-in")
     button.btn.btn-primary(type="button" style="margin-right:10px") Login page
