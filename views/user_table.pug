@@ -1,0 +1,19 @@
+extends layout 
+
+block content 
+  table.table.table-striped.table-bordered.table-hover
+    thead 
+      tr 
+        th(scope="col") First Name
+        th(scope="col") Last Name
+        th(scope="col") Username
+        th(scope="col") Member
+        th(scope="col") Admin
+    tbody 
+      for user in users 
+        tr  
+          td(scope="row")=user.first_name
+          td=user.last_name 
+          td=user.username 
+          td=user.membership_status?"Yes":"No"
+          td=user.is_admin?"Yes":"No"

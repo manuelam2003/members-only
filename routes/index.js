@@ -5,6 +5,7 @@ const user_controller = require("../controllers/userController");
 const message_controller = require("../controllers/messageController");
 const asyncHandler = require("express-async-handler");
 const Message = require("../models/message");
+const User = require("../models/user");
 
 router.get(
   "/",
@@ -14,6 +15,14 @@ router.get(
       .populate("author")
       .exec();
     res.render("index", { title: "Express1", messages: messages });
+  })
+);
+
+router.get(
+  "/users",
+  asyncHandler(async (req, res, next) => {
+    const users = await User.find().exec();
+    res.render("user_table", { users: users });
   })
 );
 
