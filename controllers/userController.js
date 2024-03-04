@@ -5,12 +5,11 @@ const asyncHandler = require("express-async-handler");
 
 const MEMBER_PASSWORD = "sermiembro";
 
-exports.become_member_get = asyncHandler(async (req, res, next) => {
+exports.become_member_get = (req, res, next) => {
   res.render("become_member_form", {
     title: "Become a member",
-    user: res.locals.currentUser,
   });
-});
+};
 
 exports.become_member_post = asyncHandler(async (req, res, next) => {
   const password = req.body.password;

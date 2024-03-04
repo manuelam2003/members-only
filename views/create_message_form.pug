@@ -1,0 +1,21 @@
+extends layout 
+
+block content 
+  form#submit-form(action="/create-message", method="POST")
+    h1 Create a Message
+    //- img#submit-form-avatar(src=`/images/${user.avatar}.svg`, alt="alien")
+    if currentUser.membership_status
+      div.form-group
+        label(for="title") Title: 
+        input#title.form-control(type="text" placeholder="Enter title" name="title" required)  
+      div.form-group
+        label(for="messageText") Message: 
+        textarea#messageText.form-control(type="text" placeholder="Enter message" name="messageText" required)  
+      if errors 
+        h3 Errors
+        ul 
+          for error in errors 
+            li!=error.msg
+      button.btn.btn-primary(type="submit") Send Message
+    else
+      p(style="color:rgb(212, 179, 28)") To create messages, you need to be a #[a(href="/become-member", style="text-decoration: none; color:#fff") Member]!

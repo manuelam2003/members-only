@@ -2,10 +2,10 @@ extends layout
 
 block content 
     h1=title 
-    if user
-        p You are #{user.username}
+    if currentUser
+        p You are #{currentUser.username}
         form(method="POST")
-            if !user.membership_status
+            if !currentUser.membership_status
                 div.form-group
                     label(for="password") Password: 
                     input#password.form-control(type="password" placeholder="Enter password" name="password" required )  
