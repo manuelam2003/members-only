@@ -1,0 +1,22 @@
+extends layout 
+
+block content 
+    h1=title 
+    if currentUser
+        p You are #{currentUser.username}
+        form(method="POST")
+            if !currentUser.is_admin
+                div.form-group
+                    label(for="password") Password: 
+                    input#password.form-control(type="password" placeholder="Enter password" name="password" required )  
+                button.btn.btn-primary(type="submit") Submit
+                if errors 
+                    ul 
+                        for error in errors     
+                            li!=error
+            else 
+                h5 You are already an admin 
+    else 
+        h2 You have to be logged in to become an admin 
+        a(href="/log-in")
+            button.btn.btn-primary(type="button" style="margin-right:10px") Login page

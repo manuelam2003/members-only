@@ -25,6 +25,10 @@ router.get("/become-member", user_controller.become_member_get);
 
 router.post("/become-member", user_controller.become_member_post);
 
+router.get("/become-admin", user_controller.become_admin_get);
+
+router.post("/become-admin", user_controller.become_admin_post);
+
 router.get("/log-in", auth_controller.log_in_get);
 
 router.post("/log-in", auth_controller.log_in_post);
