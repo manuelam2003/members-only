@@ -8,14 +8,14 @@ const helmet = require("helmet");
 const session = require("express-session");
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
+require("dotenv").config();
 
 const indexRouter = require("./routes/index");
 const app = express();
 
 const mongoose = require("mongoose");
 mongoose.set("strictQuery", false);
-const mongoDB =
-  "mongodb+srv://manuelam2003:opAN8iJRDqBV4H0U@cluster0.29nvquw.mongodb.net/members_only?retryWrites=true&w=majority&appName=Cluster0";
+const mongoDB = process.env.MONGODB_URI;
 
 main().catch((err) => console.log(err));
 async function main() {
